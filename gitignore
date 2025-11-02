@@ -1,0 +1,98 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# Data files (keep in repo for reference)
+*.csv
+*.xlsx
+*.xls
+data/*.csv  # Large data files
+
+# Model files
+*.pkl
+*.pickle
+*.joblib
+*.h5
+*.model
+
+# Large files
+*.zip
+*.tar.gz
+*.rar
+
+# Logs
+*.log
+logs/
+
+# Local configuration
+.env
+.env.local
+config.local.py
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test coverage
+.coverage
+htmlcov/
+
+# PyCharm
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+
+# Results folder large files
+results/models/*.pkl
+results/plots/*.png
+
+# Node modules (if using any frontend tools)
+node_modules/
+npm-debug.log
