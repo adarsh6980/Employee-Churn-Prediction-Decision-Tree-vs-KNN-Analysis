@@ -247,14 +247,15 @@ Actual Churned                64                 7
 ## 📈 Data Exploration
 
 ### Plot 1: Target Distribution
-![Target Distribution](01_target_distribution.jpg)
+![Target Distribution](<img width="4171" height="1467" alt="01_target_distribution" src="https://github.com/user-attachments/assets/4be64223-d5c4-4692-9213-fce1c14a5425" />)
+
 
 **Insight:** Realistic 84%-16% class imbalance requires stratified sampling to prevent model bias toward predicting retention.
 
 ---
 
 ### Plot 2: Age vs Attrition
-![Age vs Attrition](02_age_vs_attrition.jpg)
+![Age vs Attrition](<img width="4172" height="1424" alt="02_age_vs_attrition" src="https://github.com/user-attachments/assets/22b43c6a-140d-49a2-96c4-0453be4b2fe7" />)
 
 **Key Finding:**
 - Mean age (Churned): 33.4 years
@@ -266,7 +267,8 @@ Younger employees (25-35) show **significantly higher churn**.
 ---
 
 ### Plot 3: Tenure vs Attrition
-![Tenure vs Attrition](03_tenure_vs_attrition.jpg)
+![Tenure vs Attrition](<img width="4171" height="1423" alt="03_tenure_vs_attrition" src="https://github.com/user-attachments/assets/12904d86-0857-4ea0-bbce-cb1a287d71d5" />
+)
 
 **Critical Pattern:**
 - Mean tenure (Churned): 5.1 years
@@ -278,7 +280,8 @@ Younger employees (25-35) show **significantly higher churn**.
 ---
 
 ### Plot 4: Correlation Heatmap
-![Correlation Heatmap](04_correlation_heatmap.jpg)
+![Correlation Heatmap](<img width="3263" height="2969" alt="04_correlation_heatmap" src="https://github.com/user-attachments/assets/d5f579cc-ae7d-4971-9e96-dec846dd9c45" />)
+
 
 **Top Negative Correlations (Protective Factors):**
 - Total Working Years: -0.17 ✅
@@ -293,7 +296,8 @@ Experience, seniority, compensation, and tenure all **reduce churn risk**.
 ## 📊 Model Performance
 
 ### Feature Importance (Decision Tree)
-![Feature Importance](06_dt_feature_importance.jpg)
+![Feature Importance](<img width="2970" height="2364" alt="06_dt_feature_importance" src="https://github.com/user-attachments/assets/6bebc607-3848-4702-b8b8-6fea0c2a45cd" />
+)
 
 **Top 10 Predictors:**
 | Rank | Feature | Importance |
@@ -312,28 +316,32 @@ Experience, seniority, compensation, and tenure all **reduce churn risk**.
 ---
 
 ### Decision Tree: Cross-Validation Scores
-![DT CV Scores](8_dt_cv_scores.jpg)
+![DT CV Scores](<img width="2964" height="1764" alt="8_dt_cv_scores" src="https://github.com/user-attachments/assets/cdfb8845-ac29-49df-8b5a-809035097ac8" />
+)
 
 **Result:** Mean: 0.8222 (±0.0130) - Highly stable, no overfitting detected.
 
 ---
 
 ### Decision Tree: Confusion Matrix
-![DT Confusion Matrix](9_dt_confusion_matrix.jpg)
+![DT Confusion Matrix](<img width="2281" height="1764" alt="9_dt_confusion_matrix" src="https://github.com/user-attachments/assets/662541c7-881a-48a1-ba72-9e963d3ca3cb" />
+)
 
 **Analysis:** Strong at identifying retained employees but misses many actual churners.
 
 ---
 
 ### Decision Tree: ROC Curve
-![DT ROC Curve](10_dt_roc_curve.jpg)
+![DT ROC Curve](<img width="2964" height="2364" alt="10_dt_roc_curve" src="https://github.com/user-attachments/assets/12c4a64e-9618-4d2d-9101-dac5d4de973a" />)
+
 
 **ROC-AUC: 0.5580** - Moderate discrimination, slightly better than random guessing.
 
 ---
 
 ### Decision Tree: Structure (First 3 Levels)
-![DT Tree Structure](7_dt_tree_visualization.jpg)
+![DT Tree Structure](<img width="7470" height="4474" alt="7_dt_tree_visualization" src="https://github.com/user-attachments/assets/88066590-bfa8-48c4-a328-c9a156e2f987" />
+)
 
 **Key Decision Path:**
 1. **Root**: TotalWorkingYears < 1.5 → Leads to higher churn
@@ -343,7 +351,8 @@ Experience, seniority, compensation, and tenure all **reduce churn risk**.
 ---
 
 ### KNN: Hyperparameter Tuning
-![KNN Tuning](11_knn_tuning.jpg)
+![KNN Tuning](<img width="3564" height="1764" alt="11_knn_tuning" src="https://github.com/user-attachments/assets/2e554aaa-099c-4af0-b0dd-ca8c94256a3e" />
+)
 
 **Finding:** Optimal K=11 provides best bias-variance tradeoff.
 - K < 11: Overfitting risk
@@ -353,7 +362,8 @@ Experience, seniority, compensation, and tenure all **reduce churn risk**.
 ---
 
 ### KNN: Cross-Validation Scores
-![KNN CV Scores](12_knn_cv_scores.jpg)
+![KNN CV Scores](<img width="2964" height="1764" alt="12_knn_cv_scores" src="https://github.com/user-attachments/assets/64b3cb36-3775-49c2-96c1-e2198bb288e4" />
+)
 
 **Result:** Mean: 0.8513 (±0.0096) - Even more stable than Decision Tree!
 
@@ -367,7 +377,8 @@ Experience, seniority, compensation, and tenure all **reduce churn risk**.
 ---
 
 ### Model Comparison: ROC Curves
-![Model Comparison ROC](14_model_comparison_roc.jpg)
+![Model Comparison ROC](<img width="2964" height="2364" alt="14_model_comparison_roc" src="https://github.com/user-attachments/assets/587cd53b-5cfb-4f79-bfec-19eff7b915ee" />
+)
 
 **Visual Comparison:**
 - Green line (KNN): Curves above blue line across all thresholds
@@ -377,7 +388,8 @@ Experience, seniority, compensation, and tenure all **reduce churn risk**.
 ---
 
 ### Model Comparison: All Metrics
-![Model Comparison All](15_model_comparison.jpg)
+![Model Comparison All](<img width="3564" height="2070" alt="15_model_comparison" src="https://github.com/user-attachments/assets/da55279d-13cc-4842-a0a2-b1bd279c2ba4" />
+)
 
 **Key Insight:** KNN wins on accuracy, precision, and ROC-AUC. Decision Tree wins on recall and F1-score.
 
