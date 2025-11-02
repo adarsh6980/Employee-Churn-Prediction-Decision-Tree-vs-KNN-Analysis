@@ -247,7 +247,7 @@ Actual Churned                64                 7
 ## 📈 Data Exploration
 
 ### Plot 1: Target Distribution
-![Target Distribution](<img width="4171" height="1467" alt="01_target_distribution" src="https://github.com/user-attachments/assets/4be64223-d5c4-4692-9213-fce1c14a5425" />)
+![Target Distribution](<img width="4171" height="1467" alt="01_target_distribution" src="plots/01_target_distribution.png"/>)
 
 
 **Insight:** Realistic 84%-16% class imbalance requires stratified sampling to prevent model bias toward predicting retention.
