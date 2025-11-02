@@ -1,0 +1,52 @@
+Feature,Importance
+TotalWorkingYears,0.16455750992114648
+MonthlyIncome,0.13630570722757832
+Age,0.09973880724726461
+OverTime_Yes,0.07949801387744983
+StockOptionLevel,0.07575317310961352
+RelationshipSatisfaction,0.05097129103079981
+EnvironmentSatisfaction,0.04125861949531109
+DailyRate,0.03769151697420215
+NumCompaniesWorked,0.03478011127560443
+HourlyRate,0.0330405856334192
+JobRole_Research Scientist,0.03225211614508773
+TrainingTimesLastYear,0.029282724891932836
+YearsAtCompany,0.02667049121787142
+JobInvolvement,0.024961102783345006
+MonthlyRate,0.022588003560754924
+YearsInCurrentRole,0.020904149353297617
+EducationField_Medical,0.02045058993660953
+Department_Sales,0.016258782830342593
+WorkLifeBalance,0.014588343895157929
+JobRole_Sales Representative,0.011815004060363342
+YearsWithCurrManager,0.008799632361978253
+JobRole_Sales Executive,0.006887338783068448
+BusinessTravel_Travel_Rarely,0.00602761715372364
+PercentSalaryHike,0.003126983003794746
+DistanceFromHome,0.001791784230282652
+BusinessTravel_Non-Travel,0.0
+JobRole_Human Resources,0.0
+OverTime_No,0.0
+MaritalStatus_Single,0.0
+MaritalStatus_Married,0.0
+MaritalStatus_Divorced,0.0
+JobLevel,0.0
+JobSatisfaction,0.0
+Education,0.0
+JobRole_Research Director,0.0
+JobRole_Manufacturing Director,0.0
+JobRole_Manager,0.0
+JobRole_Laboratory Technician,0.0
+JobRole_Healthcare Representative,0.0
+BusinessTravel_Travel_Frequently,0.0
+Gender_Male,0.0
+Gender_Female,0.0
+EducationField_Technical Degree,0.0
+EducationField_Other,0.0
+EducationField_Marketing,0.0
+EducationField_Life Sciences,0.0
+EducationField_Human Resources,0.0
+PerformanceRating,0.0
+Department_Human Resources,0.0
+YearsSinceLastPromotion,0.0
+Department_Research & Development,0.0
