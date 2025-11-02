@@ -9,10 +9,8 @@
 [![Status: Complete](https://img.shields.io/badge/Status-Complete-brightgreen)](https://github.com)
 
 ---
-
 ## 📋 Table of Contents
-
-- [Overview](#overview)
+- [Overview](#-overview)
 - [Dataset](#dataset)
 - [Project Structure](#project-structure)
 - [Installation & Setup](#installation--setup)
@@ -28,9 +26,7 @@
 - [License](#license)
 
 ---
-
 ## 🎯 Overview
-
 **Problem Statement:** Predict which employees are at risk of leaving the organization to enable proactive retention strategies.
 
 **Business Impact:** Employee turnover costs organizations ~200% of annual salary per employee. Identifying at-risk employees early can save **$40,000-$100,000+ per prevented departure**.
@@ -47,570 +43,92 @@
 5. Stock Options (7.6%)
 
 ---
-
-## 📊 Dataset
-
-**IBM HR Analytics Employee Attrition Dataset** ([Kaggle](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset))
-
-| Property | Value |
-|----------|-------|
-| **Total Employees** | 1,470 |
-| **Features** | 34 → 51 (after encoding) |
-| **Target Variable** | Attrition (Binary) |
-| **Retained** | 1,233 (83.9%) |
-| **Churned** | 237 (16.1%) |
-| **Missing Values** | 0 |
-
-**Key Statistics:**
-- Age: 18-60 years (Mean: 36.9)
-- Monthly Income: $1,009-$19,999 (Mean: $6,503)
-- Tenure: 0-40 years (Mean: 7.0)
-- Total Working Years: 0-40 years (Mean: 11.3)
-
----
-
 ## 📁 Project Structure
-
 ```
-employee-churn-project/
-│
-├── 📂 data/
-│   ├── WA_Fn-UseC_-HR-Employee-Attrition.csv      # Original dataset
-│   ├── X_features.csv                             # Preprocessed features (1470×51)
-│   └── y_target.csv                               # Target variable
-│
-├── 📂 notebooks/
-│   ├── 1_data_exploration.ipynb                   # EDA & visualization
-│   ├── 2_decision_tree_analysis.ipynb             # DT model training
-│   └── 3_knn_analysis.ipynb                       # KNN model & comparison
-│
-├── 📂 results/
-│   ├── 📂 plots/                                  # 15 high-resolution visualizations
-│   ├── 📂 models/
-│   │   ├── decision_tree_model.pkl
-│   │   ├── knn_model.pkl
-│   │   └── scaler.pkl
-│   └── 📂 csv/
-│       ├── dt_evaluation_results.csv
-│       ├── model_comparison_results.csv
-│       └── dt_feature_importance.csv
-│
-├── 📂 report/
-│   └── Employee_Churn_Report.pdf                  # Complete analysis report
-│
-├── 📄 README.md                                   # This file
-├── 📄 requirements.txt                            # Python dependencies
-└── 📄 .gitignore                                  # Git ignore rules
+Employee-Churn-Prediction-Decision-Tree-vs-KNN-Analysis/
+├── data/
+├── notebooks/
+├── plots/
+│   ├── 01_target_distribution.png
+│   ├── 02_age_vs_attrition.png
+│   ├── 03_tenure_vs_attrition.png
+│   ├── 04_correlation_heatmap.png
+│   ├── 05_age_vs_attrition.png
+│   ├── 06_dt_feature_importance.png
+│   ├── 7_dt_tree_visualization.png
+│   ├── 8_dt_cv_scores.png
+│   ├── 9_dt_confusion_matrix.png
+│   ├── 10_dt_roc_curve.png
+│   ├── 11_knn_tuning.png
+│   ├── 12_knn_cv_scores.png
+│   ├── 13_knn_confusion_matrix.png
+│   ├── 14_model_comparison_roc.png
+│   └── 15_model_comparison.png
+├── README.md
+└── requirements.txt
 ```
 
 ---
-
-## 🚀 Installation & Setup
-
-### Prerequisites
-- Python 3.8+
-- pip or conda
-- Git
-
-### Step 1: Clone Repository
-```bash
-git clone https://github.com/yourusername/employee-churn-prediction.git
-cd employee-churn-project
-```
-
-### Step 2: Create Virtual Environment
-```bash
-# Using venv
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# OR using conda
-conda create -n churn-env python=3.8
-conda activate churn-env
-```
-
-### Step 3: Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### Step 4: Download Dataset
-```bash
-# Download from Kaggle: 
-# https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset
-# Place in ./data/ folder as: WA_Fn-UseC_-HR-Employee-Attrition.csv
-```
-
-### Step 5: Run Notebooks (in order)
-```bash
-jupyter notebook notebooks/1_data_exploration.ipynb
-jupyter notebook notebooks/2_decision_tree_analysis.ipynb
-jupyter notebook notebooks/3_knn_analysis.ipynb
-```
-
----
-
-## 🧠 Models Overview
-
-### Model 1: Decision Tree Classifier
-
-**Configuration:**
-```python
-DecisionTreeClassifier(
-    random_state=42,           # Reproducibility
-    max_depth=10,              # Prevents overfitting
-    min_samples_split=10,      # Requires 10+ samples per split
-    min_samples_leaf=5,        # Terminal nodes: 5+ samples
-    criterion='gini'           # Split criterion
-)
-```
-
-**Strengths:**
-- ✅ Interpretable decision rules
-- ✅ Clear feature importance rankings
-- ✅ Fast predictions (milliseconds)
-- ✅ No feature scaling required
-
-**Weaknesses:**
-- ❌ Lower recall (26.76%) - misses many churners
-- ❌ Lower ROC-AUC (0.5580)
-
----
-
-### Model 2: K-Nearest Neighbors (KNN)
-
-**Configuration:**
-```python
-KNeighborsClassifier(
-    n_neighbors=11,            # Optimal K from grid search
-    weights='distance',        # Closer neighbors weighted higher
-    metric='euclidean',        # Euclidean distance in scaled space
-    algorithm='auto'           # Automatic algorithm selection
-)
-```
-
-**Data Preprocessing:**
-```python
-scaler = StandardScaler()      # Feature scaling (CRITICAL for KNN)
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
-```
-
-**Strengths:**
-- ✅ Highest accuracy (84.81%)
-- ✅ Best ROC-AUC (0.7494)
-- ✅ Good precision (70%)
-- ✅ Better generalization
-
-**Weaknesses:**
-- ❌ Low recall (9.86%) - conservative predictions
-- ❌ Black box - no interpretability
-- ❌ Slower predictions (must compare with all training data)
-
----
-
-## 📊 Key Results
-
-### Performance Comparison
-
-| Metric | Decision Tree | KNN | Winner |
-|--------|---------------|-----|--------|
-| **Accuracy** | 80.05% | **84.81%** ✅ | KNN |
-| **Precision** | 28.00% | **70.00%** ✅ | KNN |
-| **Recall** | **26.76%** ✅ | 9.86% | Decision Tree |
-| **F1-Score** | **0.3016** ✅ | 0.1730 | Decision Tree |
-| **ROC-AUC** | 0.5580 | **0.7494** ✅ | KNN |
-| **CV Mean** | 0.8222 | **0.8513** ✅ | KNN |
-
-### Confusion Matrices
-
-**Decision Tree:**
-```
-                    Predicted Retained  Predicted Churned
-Actual Retained              334                12
-Actual Churned                52                19
-```
-- Specificity: 96.5% (excellent at identifying retained)
-- Sensitivity: 26.8% (struggles with churners)
-
-**KNN:**
-```
-                    Predicted Retained  Predicted Churned
-Actual Retained              367                 0
-Actual Churned                64                 7
-```
-- Specificity: 100% (perfect at retained detection!)
-- Sensitivity: 9.9% (too conservative)
-
----
-
-## 📈 Data Exploration
+## 📊 Data Exploration
 
 ### Plot 1: Target Distribution
-![Target Distribution](<img width="4171" height="1467" alt="01_target_distribution" src="plots/01_target_distribution.png"/>)
-
-
-**Insight:** Realistic 84%-16% class imbalance requires stratified sampling to prevent model bias toward predicting retention.
-
----
+![Target Distribution](plots/01_target_distribution.png)
 
 ### Plot 2: Age vs Attrition
-![Age vs Attrition](<img width="4172" height="1424" alt="02_age_vs_attrition" src="https://github.com/user-attachments/assets/22b43c6a-140d-49a2-96c4-0453be4b2fe7" />)
-
-**Key Finding:**
-- Mean age (Churned): 33.4 years
-- Mean age (Retained): 37.6 years
-- **Difference: 4.2 years**
-
-Younger employees (25-35) show **significantly higher churn**.
-
----
+![Age vs Attrition](plots/02_age_vs_attrition.png)
 
 ### Plot 3: Tenure vs Attrition
-![Tenure vs Attrition](<img width="4171" height="1423" alt="03_tenure_vs_attrition" src="https://github.com/user-attachments/assets/12904d86-0857-4ea0-bbce-cb1a287d71d5" />
-)
-
-**Critical Pattern:**
-- Mean tenure (Churned): 5.1 years
-- Mean tenure (Retained): 7.5 years
-- **40% of churners leave within <2 years**
-
-**The first 2 years are a critical retention window!**
-
----
+![Tenure vs Attrition](plots/03_tenure_vs_attrition.png)
 
 ### Plot 4: Correlation Heatmap
-![Correlation Heatmap](<img width="3263" height="2969" alt="04_correlation_heatmap" src="https://github.com/user-attachments/assets/d5f579cc-ae7d-4971-9e96-dec846dd9c45" />)
+![Correlation Heatmap](plots/04_correlation_heatmap.png)
 
-
-**Top Negative Correlations (Protective Factors):**
-- Total Working Years: -0.17 ✅
-- Job Level: -0.17 ✅
-- Monthly Income: -0.16 ✅
-- Years at Company: -0.13 ✅
-
-Experience, seniority, compensation, and tenure all **reduce churn risk**.
+### Plot 5: Age vs Attrition (Binned/Variant)
+![Age vs Attrition (Variant)](plots/05_age_vs_attrition.png)
 
 ---
-
-## 📊 Model Performance
-
-### Feature Importance (Decision Tree)
-![Feature Importance](<img width="2970" height="2364" alt="06_dt_feature_importance" src="https://github.com/user-attachments/assets/6bebc607-3848-4702-b8b8-6fea0c2a45cd" />
-)
-
-**Top 10 Predictors:**
-| Rank | Feature | Importance |
-|------|---------|-----------|
-| 1 | Total Working Years | 16.5% |
-| 2 | Monthly Income | 13.6% |
-| 3 | Age | 10.0% |
-| 4 | Overtime | 7.9% |
-| 5 | Stock Options | 7.6% |
-| 6 | Relationship Satisfaction | 5.1% |
-| 7 | Environment Satisfaction | 4.1% |
-| 8 | Daily Rate | 3.8% |
-| 9 | Companies Worked | 3.5% |
-| 10 | Hourly Rate | 3.3% |
+## 🧠 Models Overview
+- Decision Tree Classifier
+- K-Nearest Neighbors Classifier
 
 ---
+## 🧪 Model Performance
 
-### Decision Tree: Cross-Validation Scores
-![DT CV Scores](<img width="2964" height="1764" alt="8_dt_cv_scores" src="https://github.com/user-attachments/assets/cdfb8845-ac29-49df-8b5a-809035097ac8" />
-)
+### Decision Tree
+- Feature Importance
+![DT Feature Importance](plots/06_dt_feature_importance.png)
 
-**Result:** Mean: 0.8222 (±0.0130) - Highly stable, no overfitting detected.
+- Cross-Validation Scores
+![DT CV Scores](plots/8_dt_cv_scores.png)
 
----
+- Confusion Matrix
+![DT Confusion Matrix](plots/9_dt_confusion_matrix.png)
 
-### Decision Tree: Confusion Matrix
-![DT Confusion Matrix](<img width="2281" height="1764" alt="9_dt_confusion_matrix" src="https://github.com/user-attachments/assets/662541c7-881a-48a1-ba72-9e963d3ca3cb" />
-)
+- ROC Curve
+![DT ROC Curve](plots/10_dt_roc_curve.png)
 
-**Analysis:** Strong at identifying retained employees but misses many actual churners.
+- Tree Structure
+![DT Tree Structure](plots/7_dt_tree_visualization.png)
 
----
+### KNN
+- Hyperparameter Tuning
+![KNN Tuning](plots/11_knn_tuning.png)
 
-### Decision Tree: ROC Curve
-![DT ROC Curve](<img width="2964" height="2364" alt="10_dt_roc_curve" src="https://github.com/user-attachments/assets/12c4a64e-9618-4d2d-9101-dac5d4de973a" />)
+- Cross-Validation Scores
+![KNN CV Scores](plots/12_knn_cv_scores.png)
 
+- Confusion Matrix
+![KNN Confusion Matrix](plots/13_knn_confusion_matrix.png)
 
-**ROC-AUC: 0.5580** - Moderate discrimination, slightly better than random guessing.
+### Model Comparison
+- ROC Curve Comparison
+![Model Comparison ROC](plots/14_model_comparison_roc.png)
 
----
-
-### Decision Tree: Structure (First 3 Levels)
-![DT Tree Structure](<img width="7470" height="4474" alt="7_dt_tree_visualization" src="https://github.com/user-attachments/assets/88066590-bfa8-48c4-a328-c9a156e2f987" />
-)
-
-**Key Decision Path:**
-1. **Root**: TotalWorkingYears < 1.5 → Leads to higher churn
-2. **Level 2**: JobRole, OverTime status
-3. **Level 3**: Age, Satisfaction metrics
-
----
-
-### KNN: Hyperparameter Tuning
-![KNN Tuning](<img width="3564" height="1764" alt="11_knn_tuning" src="https://github.com/user-attachments/assets/2e554aaa-099c-4af0-b0dd-ca8c94256a3e" />
-)
-
-**Finding:** Optimal K=11 provides best bias-variance tradeoff.
-- K < 11: Overfitting risk
-- K = 11: Sweet spot (84.95% CV accuracy)
-- K > 11: Underfitting tendency
+- Overall Metrics Comparison
+![Model Comparison](plots/15_model_comparison.png)
 
 ---
-
-### KNN: Cross-Validation Scores
-![KNN CV Scores](<img width="2964" height="1764" alt="12_knn_cv_scores" src="https://github.com/user-attachments/assets/64b3cb36-3775-49c2-96c1-e2198bb288e4" />
-)
-
-**Result:** Mean: 0.8513 (±0.0096) - Even more stable than Decision Tree!
-
----
-
-### KNN: Confusion Matrix
-![KNN Confusion Matrix](13_knn_confusion_matrix.jpg)
-
-**Analysis:** Conservative approach - predicts retention for almost everyone (high accuracy but misses churners).
-
----
-
-### Model Comparison: ROC Curves
-![Model Comparison ROC](<img width="2964" height="2364" alt="14_model_comparison_roc" src="https://github.com/user-attachments/assets/587cd53b-5cfb-4f79-bfec-19eff7b915ee" />
-)
-
-**Visual Comparison:**
-- Green line (KNN): Curves above blue line across all thresholds
-- Blue line (DT): Lower curve, less discriminative
-- KNN shows **superior overall discrimination**
-
----
-
-### Model Comparison: All Metrics
-![Model Comparison All](<img width="3564" height="2070" alt="15_model_comparison" src="https://github.com/user-attachments/assets/da55279d-13cc-4842-a0a2-b1bd279c2ba4" />
-)
-
-**Key Insight:** KNN wins on accuracy, precision, and ROC-AUC. Decision Tree wins on recall and F1-score.
-
----
-
-## 💡 Business Insights
-
-### High-Risk Employee Profile
-- **Age:** 25-35 years (early career)
-- **Tenure:** <2 years with company
-- **Income:** <$2,500/month (bottom quartile)
-- **Work Status:** Regular overtime workers
-- **Benefits:** Limited or no stock options
-
-### Churn Drivers (Top 5)
-1. **Low Experience** (Total Working Years < 1.5)
-2. **Low Compensation** (Monthly Income < $2,361)
-3. **Young Age** (Age < 28.5)
-4. **Overtime Work** (Working >0.5 hours/week overtime)
-5. **Limited Benefits** (Stock Option Level < 1)
-
-### Cost-Benefit Analysis
-- **Current Annual Churn:** 237 employees (16.1%)
-- **Annual Turnover Cost:** ~$3.08M (assuming $50k salary, 200% cost multiplier)
-- **Target After Interventions:** 12-14% churn rate
-- **Expected Annual Savings:** $1.2M - $2.0M
-- **ROI:** Pays for itself with 24-40 saved departures
-
----
-
-## 🎯 Usage Guide
-
-### Running the Complete Pipeline
-
-#### Option 1: Run All Notebooks Sequentially
-```bash
-cd notebooks/
-
-# 1. Data Exploration & Visualization
-jupyter notebook 1_data_exploration.ipynb
-
-# 2. Decision Tree Training & Evaluation
-jupyter notebook 2_decision_tree_analysis.ipynb
-
-# 3. KNN Training, Tuning & Model Comparison
-jupyter notebook 3_knn_analysis.ipynb
-```
-
-#### Option 2: Use Saved Models for Predictions
-```python
-import pickle
-import pandas as pd
-from sklearn.preprocessing import StandardScaler
-
-# Load trained models
-with open('../results/models/decision_tree_model.pkl', 'rb') as f:
-    dt_model = pickle.load(f)
-
-with open('../results/models/knn_model.pkl', 'rb') as f:
-    knn_model = pickle.load(f)
-
-# Load scaler (for KNN)
-with open('../results/models/scaler.pkl', 'rb') as f:
-    scaler = pickle.load(f)
-
-# Load new employee data
-new_employees = pd.read_csv('../data/new_employees.csv')
-
-# Decision Tree predictions
-dt_predictions = dt_model.predict(new_employees)
-dt_probabilities = dt_model.predict_proba(new_employees)[:, 1]
-
-# KNN predictions (with scaling)
-new_employees_scaled = scaler.transform(new_employees)
-knn_predictions = knn_model.predict(new_employees_scaled)
-knn_probabilities = knn_model.predict_proba(new_employees_scaled)[:, 1]
-
-# Identify high-risk employees (churn probability > 0.6)
-high_risk_dt = new_employees[dt_probabilities > 0.6]
-high_risk_knn = new_employees[knn_probabilities > 0.6]
-```
-
-### Making Predictions on New Data
-
-```python
-# Prepare data in same format as training
-new_data = pd.read_csv('new_employees.csv')
-
-# Scale features (KNN requires this)
-new_data_scaled = scaler.transform(new_data)
-
-# Get predictions
-churn_prob = knn_model.predict_proba(new_data_scaled)[:, 1]
-
-# Add predictions to dataframe
-new_data['Churn_Risk_Score'] = churn_prob
-new_data['Churn_Prediction'] = knn_model.predict(new_data_scaled)
-
-# Flag high-risk employees for HR intervention
-new_data['Intervention_Required'] = churn_prob > 0.6
-```
-
----
-
-## 📋 Results & Recommendations
-
-### Recommended Model: **KNN**
-
-**Why KNN is recommended for production:**
-1. **Highest Accuracy:** 84.81% vs Decision Tree's 80.05%
-2. **Best Discrimination:** ROC-AUC 0.7494 vs 0.5580
-3. **Higher Precision:** 70% means fewer false alarms
-4. **Stable Performance:** Lower CV variance (0.96% vs 1.30%)
-
-### Business Recommendations
-
-#### Immediate Actions (0-30 days)
-1. **Deploy KNN Model** - Integrate into HR dashboard
-2. **Compensation Review** - Audit salaries <$2,500/month
-3. **Early Tenure Programs** - Enhance first-year experience
-
-#### Short-Term (1-3 months)
-1. **Work-Life Balance** - Cap overtime, offer flexibility
-2. **Stock Options Expansion** - Increase eligibility
-3. **Mentorship Programs** - Target younger employees
-
-#### Long-Term (3+ months)
-1. **Automated Risk Scoring** - Quarterly churn risk updates
-2. **Intervention Tracking** - Measure program effectiveness
-3. **Model Retraining** - Quarterly with new data
-
-### Expected Impact
-- **Churn Reduction:** 15-25% decrease in attrition
-- **Cost Savings:** $1.2M - $2.0M annually
-- **ROI:** Positive with just 24-40 prevented departures
-- **Strategic Benefit:** Data-driven HR strategy
-
----
-
-## 🛠️ Tech Stack
-
-**Core Libraries:**
-- **pandas** - Data manipulation & analysis
-- **numpy** - Numerical computing
-- **scikit-learn** - Machine learning models
-- **matplotlib** - Static visualizations
-- **seaborn** - Statistical visualizations
-- **jupyter** - Interactive notebooks
-
-**Environment:**
-- Python 3.8+
-- Virtual environment recommended
-- No GPU required (CPU sufficient)
-
-**Reproducibility:**
-- `random_state=42` set throughout
-- Relative paths for data/results
-- Stratified cross-validation
-- Feature scaling (StandardScaler)
-
----
-
-## 📝 Requirements
-
-Create `requirements.txt`:
-```
-pandas==1.3.0
-numpy==1.21.0
-scikit-learn==1.0.0
-matplotlib==3.4.2
-seaborn==0.11.1
-jupyter==1.0.0
-```
-
-Install all dependencies:
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 📧 Contact & Support
-
-**Author:** Adarsh Ramakrishna  
-**Email:** adireland.ie@gmail.com  
-**GitHub:** [@adarsh-ramakrishna](https://github.com)  
-**LinkedIn:** [Adarsh Ramakrishna](https://linkedin.com/in/adarsh-ramakrishna)
-
-For questions or support, please open an issue on GitHub.
-
----
-
-## 🔗 References & Resources
-
-- **Dataset:** [IBM HR Analytics - Kaggle](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
-- **Scikit-learn Documentation:** [sklearn.org](https://scikit-learn.org/)
-- **Cross-Validation Guide:** [Scikit-learn CV](https://scikit-learn.org/stable/modules/cross_validation.html)
-- **Feature Importance:** [Interpreting Feature Importance](https://scikit-learn.org/stable/modules/inspection.html)
-
----
-
 ## 📊 Project Statistics
-
 - **Total Employees Analyzed:** 1,470
 - **Features Engineering:** 34 → 51
 - **Models Developed:** 2 (Decision Tree + KNN)
@@ -621,9 +139,7 @@ For questions or support, please open an issue on GitHub.
 - **Prediction Time:** <10ms per employee
 
 ---
-
 ## 🎓 Learnings & Insights
-
 ### Key Technical Learnings
 ✅ Importance of stratified sampling for imbalanced datasets  
 ✅ Feature scaling critical for distance-based algorithms (KNN)  
@@ -639,9 +155,22 @@ For questions or support, please open an issue on GitHub.
 ✅ Early intervention more cost-effective than reactive approach  
 
 ---
+## 🧰 Tech Stack
+- Python, pandas, NumPy, scikit-learn, Matplotlib/Seaborn, Jupyter
 
+---
+## 🚀 Usage Guide
+- Install dependencies: `pip install -r requirements.txt`
+- Run notebooks in `notebooks/` to reproduce results
+
+---
+## ✅ Results & Recommendations
+- Decision Tree provides interpretability for HR actions
+- KNN offers competitive accuracy with proper scaling
+- Focus retention efforts on top predictors identified
+
+---
 ## ⭐ Acknowledgments
-
 Special thanks to:
 - IBM for the HR Analytics dataset
 - Kaggle community for insights
@@ -649,7 +178,6 @@ Special thanks to:
 - TUS Athlone for academic guidance
 
 ---
-
 <div align="center">
 
 ### Made with ❤️ by Adarsh Ramakrishna
